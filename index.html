@@ -524,9 +524,9 @@
       <p>We've already identified the <span class="project-count">three</span> deliverables that make sense to start with (see the reference table below for what to upload into each one).</p>
       <ul class="checklist">
         <li data-key="t1"><input type="checkbox" id="t1"><label for="t1">On the Claude homepage, go to <strong>Projects > Team > New Project</strong></label></li>
-        <li data-key="t2"><input type="checkbox" id="t2"><label for="t2">Create <strong>RE Quarterly Reporting</strong> -- upload the docs listed in the reference table</label></li>
-        <li data-key="t3"><input type="checkbox" id="t3"><label for="t3">Create <strong>Service Provider & Budget Tracking</strong> -- upload the docs listed in the reference table</label></li>
-        <li data-key="t4"><input type="checkbox" id="t4"><label for="t4">Create <strong>Compliance Filings Tracker</strong> -- upload the docs listed in the reference table</label></li>
+        <li data-key="t2" class="judy-only"><input type="checkbox" id="t2"><label for="t2">Create <strong>RE Quarterly Reporting</strong> -- upload the docs listed in the reference table</label></li>
+        <li data-key="t3" class="judy-only"><input type="checkbox" id="t3"><label for="t3">Create <strong>Service Provider & Budget Tracking</strong> -- upload the docs listed in the reference table</label></li>
+        <li data-key="t4" class="judy-only"><input type="checkbox" id="t4"><label for="t4">Create <strong>Compliance Filings Tracker</strong> -- upload the docs listed in the reference table</label></li>
         <li data-key="t4b" class="max-only" style="display:none;"><input type="checkbox" id="t4b"><label for="t4b">Create <strong>Bank Statement Liquidity Tracker</strong> -- upload your Chase CSV exports and any existing liquidity spreadsheet template (see reference table)</label></li>
         <li data-key="t5"><input type="checkbox" id="t5"><label for="t5">Set all <span class="project-count">three</span> Projects to <strong>Shared</strong> so the whole team can access them</label></li>
       </ul>
@@ -594,9 +594,9 @@ The template should rely on the Project instructions for everything else -- tone
 
       <h3>What you'll end up with (examples)</h3>
       <ul class="checklist">
-        <li data-key="w1"><input type="checkbox" id="w1"><label for="w1"><strong>RE Reporting:</strong> "Generate the quarterly property report using these financial figures: [PASTE NUMBERS HERE]"</label></li>
-        <li data-key="w2"><input type="checkbox" id="w2"><label for="w2"><strong>Budget Tracking:</strong> "Update the service provider budget tracker with these new invoices: [PASTE INVOICE DETAILS]"</label></li>
-        <li data-key="w3"><input type="checkbox" id="w3"><label for="w3"><strong>Compliance Tracker:</strong> "Update the compliance filing tracker with the current status of these entities: [PASTE STATUS NOTES]"</label></li>
+        <li data-key="w1" class="judy-only"><input type="checkbox" id="w1"><label for="w1"><strong>RE Reporting:</strong> "Generate the quarterly property report using these financial figures: [PASTE NUMBERS HERE]"</label></li>
+        <li data-key="w2" class="judy-only"><input type="checkbox" id="w2"><label for="w2"><strong>Budget Tracking:</strong> "Update the service provider budget tracker with these new invoices: [PASTE INVOICE DETAILS]"</label></li>
+        <li data-key="w3" class="judy-only"><input type="checkbox" id="w3"><label for="w3"><strong>Compliance Tracker:</strong> "Update the compliance filing tracker with the current status of these entities: [PASTE STATUS NOTES]"</label></li>
         <li data-key="w3b" class="max-only" style="display:none;"><input type="checkbox" id="w3b"><label for="w3b"><strong>Liquidity Tracker:</strong> "Here are this month's Chase CSV exports. Categorize all transactions, summarize inflows and outflows by month, and produce a formatted liquidity overview: [UPLOAD CSV FILES]"</label></li>
       </ul>
 
@@ -852,19 +852,20 @@ Then critique your own output: what matches our standards, what doesn't, and wha
     const tbody = document.getElementById('projectsBody');
 
     if (name === 'max') {
-      heading.textContent = "Max's 4 Projects -- Quick Reference";
-      // Show Max-only checklist items
+      heading.textContent = "Max's Project -- Quick Reference";
+      // Show Max-only checklist items, hide Judy-only items
       document.querySelectorAll('.max-only').forEach(el => el.style.display = '');
+      document.querySelectorAll('.judy-only').forEach(el => el.style.display = 'none');
       // Update project counts
-      document.querySelectorAll('.project-count').forEach(el => el.textContent = '4');
-      // Add the Bank Statement Liquidity project for Max
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td><strong>Bank Statement Liquidity Tracker</strong></td>
-        <td>Converting CSV banking exports (Chase transaction files) into a formatted Excel sheet that categorizes transactions by type, summarizes inflows/outflows by month, and provides a clear liquidity overview per account</td>
-        <td>Sample Chase CSV exports (checking &amp; credit card), your preferred Excel liquidity template or formatting example, a list of recurring transaction categories (e.g., property payments, utilities, insurance, wire transfers), any account-to-entity mapping (which account belongs to which entity)</td>
+      document.querySelectorAll('.project-count').forEach(el => el.textContent = '1');
+      // Replace shared project rows with just the Liquidity project
+      tbody.innerHTML = `
+        <tr>
+          <td><strong>Bank Statement Liquidity Tracker</strong></td>
+          <td>Converting CSV banking exports (Chase transaction files) into a formatted Excel sheet that categorizes transactions by type, summarizes inflows/outflows by month, and provides a clear liquidity overview per account</td>
+          <td>Sample Chase CSV exports (checking &amp; credit card), your preferred Excel liquidity template or formatting example, a list of recurring transaction categories (e.g., property payments, utilities, insurance, wire transfers), any account-to-entity mapping (which account belongs to which entity)</td>
+        </tr>
       `;
-      tbody.appendChild(row);
     } else if (name === 'judy') {
       heading.textContent = "Judy's 3 Projects -- Quick Reference";
     }
