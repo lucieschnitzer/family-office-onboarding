@@ -528,6 +528,11 @@
         <li data-key="t3" class="judy-only"><input type="checkbox" id="t3"><label for="t3">Create <strong>Service Provider & Budget Tracking</strong> -- upload the docs listed in the reference table</label></li>
         <li data-key="t4" class="judy-only"><input type="checkbox" id="t4"><label for="t4">Create <strong>Compliance Filings Tracker</strong> -- upload the docs listed in the reference table</label></li>
         <li data-key="t4b" class="max-only" style="display:none;"><input type="checkbox" id="t4b"><label for="t4b">Create <strong>Bank Statement Liquidity Tracker</strong> -- upload your Chase CSV exports and any existing liquidity spreadsheet template (see reference table)</label></li>
+        <li data-key="t4c" class="lia-only" style="display:none;"><input type="checkbox" id="t4c"><label for="t4c">Create <strong>Reporting (Boat, Opex)</strong> -- upload the docs listed in the reference table</label></li>
+        <li data-key="t4d" class="lia-only" style="display:none;"><input type="checkbox" id="t4d"><label for="t4d">Create <strong>Service Provider & Budget Tracking</strong> -- upload the docs listed in the reference table</label></li>
+        <li data-key="t4e" class="lia-only" style="display:none;"><input type="checkbox" id="t4e"><label for="t4e">Create <strong>Compliance Filings Tracker</strong> -- upload the docs listed in the reference table</label></li>
+        <li data-key="t4f" class="lia-only" style="display:none;"><input type="checkbox" id="t4f"><label for="t4f">Create <strong>Outgoing Invoices</strong> -- upload the docs listed in the reference table</label></li>
+        <li data-key="t4g" class="lia-only" style="display:none;"><input type="checkbox" id="t4g"><label for="t4g">Create <strong>Interest Statements</strong> -- upload the docs listed in the reference table</label></li>
         <li data-key="t5"><input type="checkbox" id="t5"><label for="t5">Set all <span class="project-count">three</span> Projects to <strong>Shared</strong> so the whole team can access them</label></li>
       </ul>
 
@@ -598,6 +603,11 @@ The template should rely on the Project instructions for everything else -- tone
         <li data-key="w2" class="judy-only"><input type="checkbox" id="w2"><label for="w2"><strong>Budget Tracking:</strong> "Update the service provider budget tracker with these new invoices: [PASTE INVOICE DETAILS]"</label></li>
         <li data-key="w3" class="judy-only"><input type="checkbox" id="w3"><label for="w3"><strong>Compliance Tracker:</strong> "Update the compliance filing tracker with the current status of these entities: [PASTE STATUS NOTES]"</label></li>
         <li data-key="w3b" class="max-only" style="display:none;"><input type="checkbox" id="w3b"><label for="w3b"><strong>Liquidity Tracker:</strong> "Here are this month's Chase CSV exports. Categorize all transactions, summarize inflows and outflows by month, and produce a formatted liquidity overview: [UPLOAD CSV FILES]"</label></li>
+        <li data-key="w3c" class="lia-only" style="display:none;"><input type="checkbox" id="w3c"><label for="w3c"><strong>Reporting (Boat, Opex):</strong> "Transfer these financial figures into the report master template: [PASTE FIGURES / UPLOAD STATEMENTS]"</label></li>
+        <li data-key="w3d" class="lia-only" style="display:none;"><input type="checkbox" id="w3d"><label for="w3d"><strong>Budget Tracking:</strong> "Update the service provider budget tracker with these new invoices: [PASTE INVOICE DETAILS]"</label></li>
+        <li data-key="w3e" class="lia-only" style="display:none;"><input type="checkbox" id="w3e"><label for="w3e"><strong>Compliance Tracker:</strong> "Update the compliance filing tracker with the current status of these entities: [PASTE STATUS NOTES]"</label></li>
+        <li data-key="w3f" class="lia-only" style="display:none;"><input type="checkbox" id="w3f"><label for="w3f"><strong>Outgoing Invoices:</strong> "Generate this month's outgoing invoices for the following entities using these details: [PASTE ENTITY & BILLING INFO]"</label></li>
+        <li data-key="w3g" class="lia-only" style="display:none;"><input type="checkbox" id="w3g"><label for="w3g"><strong>Interest Statements:</strong> "Create the interest statements for this period using these figures from the standardized report: [PASTE FIGURES / UPLOAD REPORT]"</label></li>
       </ul>
 
       <ul class="checklist">
@@ -694,6 +704,7 @@ Then critique your own output: what matches our standards, what doesn't, and wha
         <li data-key="f6"><input type="checkbox" id="f6"><label for="f6">Walk through each other's Projects so everyone knows how to use all three</label></li>
         <li data-key="f7"><input type="checkbox" id="f7"><label for="f7">Try a template live together on a new task</label></li>
         <li data-key="f8"><input type="checkbox" id="f8"><label for="f8">Brainstorm: what other deliverables should become Projects?</label></li>
+        <li data-key="f8b" class="lia-only" style="display:none;"><input type="checkbox" id="f8b"><label for="f8b"><strong>Explore:</strong> Discuss <strong>Web Request Automation</strong> -- could Claude trigger recurring requests at external webpages? E.g., Commercial Registry extracts every 4 months, proof of payments from utility providers (browser automation, MCP tools)</label></li>
         <li data-key="f9"><input type="checkbox" id="f9"><label for="f9">Assign ownership: who maintains and improves which Project going forward</label></li>
       </ul>
 
@@ -868,6 +879,47 @@ Then critique your own output: what matches our standards, what doesn't, and wha
       `;
     } else if (name === 'judy') {
       heading.textContent = "Judy's 3 Projects -- Quick Reference";
+    } else if (name === 'lia') {
+      heading.textContent = "Lia's 5 Projects -- Quick Reference";
+      // Show Lia-only checklist items, hide Judy-only and Max-only items
+      document.querySelectorAll('.lia-only').forEach(el => el.style.display = '');
+      document.querySelectorAll('.judy-only').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.max-only').forEach(el => el.style.display = 'none');
+      // Update project counts
+      document.querySelectorAll('.project-count').forEach(el => el.textContent = '5');
+      // Replace projects reference table
+      tbody.innerHTML = `
+        <tr>
+          <td><strong>Reporting (Boat, Opex)</strong></td>
+          <td>Transferring figures from financial reports, credit card statements, and invoices into report master templates</td>
+          <td>A completed sample report (Boat or Opex), the blank master template, sample financial statements/credit card statements/invoices, any formatting or mapping guidelines</td>
+        </tr>
+        <tr>
+          <td><strong>Service Provider &amp; Budget Tracking</strong></td>
+          <td>Monitoring costs and invoices throughout the year (shared tool with Judie &amp; Lucie)</td>
+          <td>Current vendor list or contract summary, existing budget monitoring spreadsheet, sample invoices, any approval workflow docs</td>
+        </tr>
+        <tr>
+          <td><strong>Compliance Filings Tracker</strong></td>
+          <td>Managing deadlines for annual financial statements and tax filings (same as Judie)</td>
+          <td>List of entities and filing requirements, past filing calendar or deadline tracker, jurisdiction requirements, any checklist templates</td>
+        </tr>
+        <tr>
+          <td><strong>Outgoing Invoices</strong></td>
+          <td>Creating outgoing invoices on the same date each month for different entities</td>
+          <td>A sample outgoing invoice per entity, entity details (names, addresses, billing info), invoice schedule (which entity, which date), any numbering/reference conventions</td>
+        </tr>
+        <tr>
+          <td><strong>Interest Statements</strong></td>
+          <td>Creating interest statements every 3 or 6 months for Group entities using figures from a standardized report</td>
+          <td>A sample interest statement, the standardized source report, entity list with loan/intercompany details, schedule (quarterly vs. semi-annual per entity)</td>
+        </tr>
+        <tr style="background: var(--accent-light);">
+          <td><strong>Web Request Automation</strong> <em>(Exploration)</em></td>
+          <td>Could Claude trigger recurring requests at external webpages? E.g., Commercial Registry extracts every 4 months, proof of payments from utility providers</td>
+          <td><em>Friday discussion topic -- no uploads needed yet</em></td>
+        </tr>
+      `;
     }
   }
 
