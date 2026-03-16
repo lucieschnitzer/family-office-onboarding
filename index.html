@@ -449,6 +449,10 @@
       <div class="faq-q">Do I need to be technical?</div>
       <div class="faq-a">Not at all. If you can type a message, you can use Claude. The prompt templates we'll set up this week are copy-paste -- you just fill in one input field with whatever data or notes you already have.</div>
     </div>
+    <div class="faq-item">
+      <div class="faq-q">What about data privacy, licensing, and compliance?</div>
+      <div class="faq-a">Anthropic takes data protection seriously. On the API and Business/Enterprise plans, your data is <strong>never used for training</strong>. API inputs and outputs are retained for up to 30 days for trust &amp; safety, then deleted. Anthropic holds SOC 2 Type II certification. Claude is also available through AWS Bedrock and Google Vertex AI if your data needs to stay within those environments. For enterprise-specific data processing agreements (DPAs), custom contractual requirements, or licensing questions, reach out to Anthropic's sales team directly at <a href="https://www.anthropic.com/contact-sales" target="_blank">anthropic.com/contact-sales</a>. Full details: <a href="https://www.anthropic.com/policies/privacy" target="_blank">Privacy Policy</a> &middot; <a href="https://www.anthropic.com/policies/commercial-terms" target="_blank">Commercial Terms</a> &middot; <a href="https://www.anthropic.com/policies/aup" target="_blank">Usage Policy</a>.</div>
+    </div>
   </div>
 
   <p class="section-label">Your 5-Day Plan</p>
@@ -505,7 +509,7 @@
         <span class="day-num">17</span>
       </div>
       <div class="day-info">
-        <div class="day-title">Set Up Your 3 Projects</div>
+        <div class="day-title">Set Up Your <span class="project-count">3</span> Projects</div>
         <div class="day-meta">~30 minutes</div>
       </div>
       <div class="day-check" data-day-check="2"></div>
@@ -517,13 +521,14 @@
       <p>A Project is a workspace in Claude that remembers context between conversations. You upload documents (templates, past reports, guidelines) and set instructions so Claude already knows how we work -- no re-explaining every time. Think of it as giving that new hire a proper onboarding folder.</p>
 
       <h3>Create the 3 Projects</h3>
-      <p>We've already identified the three deliverables that make sense to start with (see the reference table below for what to upload into each one).</p>
+      <p>We've already identified the <span class="project-count">three</span> deliverables that make sense to start with (see the reference table below for what to upload into each one).</p>
       <ul class="checklist">
         <li data-key="t1"><input type="checkbox" id="t1"><label for="t1">On the Claude homepage, go to <strong>Projects > Team > New Project</strong></label></li>
         <li data-key="t2"><input type="checkbox" id="t2"><label for="t2">Create <strong>RE Quarterly Reporting</strong> -- upload the docs listed in the reference table</label></li>
         <li data-key="t3"><input type="checkbox" id="t3"><label for="t3">Create <strong>Service Provider & Budget Tracking</strong> -- upload the docs listed in the reference table</label></li>
         <li data-key="t4"><input type="checkbox" id="t4"><label for="t4">Create <strong>Compliance Filings Tracker</strong> -- upload the docs listed in the reference table</label></li>
-        <li data-key="t5"><input type="checkbox" id="t5"><label for="t5">Set all three Projects to <strong>Shared</strong> so the whole team can access them</label></li>
+        <li data-key="t4b" class="max-only" style="display:none;"><input type="checkbox" id="t4b"><label for="t4b">Create <strong>Bank Statement Liquidity Tracker</strong> -- upload your Chase CSV exports and any existing liquidity spreadsheet template (see reference table)</label></li>
+        <li data-key="t5"><input type="checkbox" id="t5"><label for="t5">Set all <span class="project-count">three</span> Projects to <strong>Shared</strong> so the whole team can access them</label></li>
       </ul>
 
       <h3>Generate custom instructions for each Project</h3>
@@ -592,6 +597,7 @@ The template should rely on the Project instructions for everything else -- tone
         <li data-key="w1"><input type="checkbox" id="w1"><label for="w1"><strong>RE Reporting:</strong> "Generate the quarterly property report using these financial figures: [PASTE NUMBERS HERE]"</label></li>
         <li data-key="w2"><input type="checkbox" id="w2"><label for="w2"><strong>Budget Tracking:</strong> "Update the service provider budget tracker with these new invoices: [PASTE INVOICE DETAILS]"</label></li>
         <li data-key="w3"><input type="checkbox" id="w3"><label for="w3"><strong>Compliance Tracker:</strong> "Update the compliance filing tracker with the current status of these entities: [PASTE STATUS NOTES]"</label></li>
+        <li data-key="w3b" class="max-only" style="display:none;"><input type="checkbox" id="w3b"><label for="w3b"><strong>Liquidity Tracker:</strong> "Here are this month's Chase CSV exports. Categorize all transactions, summarize inflows and outflows by month, and produce a formatted liquidity overview: [UPLOAD CSV FILES]"</label></li>
       </ul>
 
       <ul class="checklist">
@@ -698,8 +704,8 @@ Then critique your own output: what matches our standards, what doesn't, and wha
   </div>
 
   <!-- Projects Reference Table -->
-  <div class="projects-ref">
-    <h2>Judy's 3 Projects -- Quick Reference</h2>
+  <div class="projects-ref" id="projectsRef">
+    <h2 id="projectsHeading">Your Projects -- Quick Reference</h2>
     <table class="ref-table">
       <thead>
         <tr>
@@ -708,7 +714,7 @@ Then critique your own output: what matches our standards, what doesn't, and wha
           <th>What to Upload</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="projectsBody">
         <tr>
           <td><strong>RE Quarterly Reporting</strong></td>
           <td>Transferring figures from financial reports into RE report templates</td>
@@ -739,6 +745,8 @@ Then critique your own output: what matches our standards, what doesn't, and wha
     <a href="https://docs.anthropic.com/" target="_blank">Claude Documentation</a>
     <a href="https://claude.ai/pricing/team" target="_blank">Claude Team Plan</a>
     <a href="https://claude.ai" target="_blank">Open Claude</a>
+    <a href="https://www.anthropic.com/contact-sales" target="_blank">Contact Anthropic Sales</a>
+    <a href="https://www.anthropic.com/policies/privacy" target="_blank">Privacy Policy</a>
   </div>
   <p class="fine">Built for our team by Lucie. Questions? Just ask.</p>
 </div>
@@ -837,7 +845,33 @@ Then critique your own output: what matches our standards, what doesn't, and wha
     });
   }
 
+  // ============ Per-User Customization ============
+  function customizeForUser() {
+    const name = userName.toLowerCase().trim();
+    const heading = document.getElementById('projectsHeading');
+    const tbody = document.getElementById('projectsBody');
+
+    if (name === 'max') {
+      heading.textContent = "Max's 4 Projects -- Quick Reference";
+      // Show Max-only checklist items
+      document.querySelectorAll('.max-only').forEach(el => el.style.display = '');
+      // Update project counts
+      document.querySelectorAll('.project-count').forEach(el => el.textContent = '4');
+      // Add the Bank Statement Liquidity project for Max
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><strong>Bank Statement Liquidity Tracker</strong></td>
+        <td>Converting CSV banking exports (Chase transaction files) into a formatted Excel sheet that categorizes transactions by type, summarizes inflows/outflows by month, and provides a clear liquidity overview per account</td>
+        <td>Sample Chase CSV exports (checking &amp; credit card), your preferred Excel liquidity template or formatting example, a list of recurring transaction categories (e.g., property payments, utilities, insurance, wire transfers), any account-to-entity mapping (which account belongs to which entity)</td>
+      `;
+      tbody.appendChild(row);
+    } else if (name === 'judy') {
+      heading.textContent = "Judy's 3 Projects -- Quick Reference";
+    }
+  }
+
   // ============ Init ============
+  customizeForUser();
   initCheckboxes();
   updateDayChecks();
   updateProgress();
